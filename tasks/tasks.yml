@@ -1,3 +1,11 @@
+- name: Installing neovim
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - neovim
+
 - name: Download lazygit
   get_url:
     url: https://github.com/jesseduffield/lazygit/releases/download/v{{ devel_lazygit_version }}/lazygit_{{ devel_lazygit_version }}_{{ devel_os }}_{{ devel_architecture }}.tar.gz
