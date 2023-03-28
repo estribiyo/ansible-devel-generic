@@ -1,0 +1,25 @@
+- name: Installing neovim
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - neovim
+
+- name: Download lazygit
+  get_url:
+    url: https://github.com/jesseduffield/lazygit/releases/download/v{{ devel_lazygit_version }}/lazygit_{{ devel_lazygit_version }}_{{ devel_os }}_{{ devel_architecture }}.tar.gz
+    dest: /usr/src/lazygit_{{ devel_lazygit_version }}_{{ devel_os }}_{{ devel_architecture }}.tar.gz
+
+- name: Extract lazygit
+  unarchive:
+    src: /usr/src/lazygit_{{ devel_lazygit_version }}_{{ devel_os }}_{{ devel_architecture }}.tar.gz
+    dest: /usr/src/
+    remote_src: yes
+
+- name: Copy lazygit to /usr/local/bin
+  copy:
+    src: /usr/src/lazygit
+    dest: /usr/local/bin/lazygit
+    mode: '0755'
+    remote_src: yes
